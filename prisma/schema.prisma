@@ -1,28 +1,64 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["postgresqlExtensions"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider   = "postgresql"
-  extensions = [vector]
+  provider = "mysql"
+  // url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String          @id @default(cuid())
+  name              String?
+  email             String?         @unique
+  emailVerified     DateTime?
+  image             String?
+  password          String?
+  role              Role            @default(USER)
+  accounts          Account[]
+  sessions          Session[]
+  authenticators    Authenticator[]
+  bookings          Booking[]
+  // Preferences
+  preferredCurrency String?         @default("USD")
+  preferredLanguage String?         @default("en")
+  timezone          String?         @default("UTC")
+
+  // Notifications
+  emailBookingUpdates Boolean @default(true)
+  emailPromotions     Boolean @default(true)
+  emailTripReminders  Boolean @default(true)
+  emailProductNews    Boolean @default(false)
+
+  // Privacy
+  publicProfile Boolean @default(false)
+  showEmail     Boolean @default(false)
+  showTrips     Boolean @default(true)
+
+  createdAt DateTime @default(now()) // 👈 MUST have @default(now())
+  updatedAt DateTime @updatedAt
+
+  wishlists Wishlist[]
+  reviews   Review[]
 }
 
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                       String   @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?  @db.Text
+  access_token             String?  @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String?  @db.Text
+  session_state            String?
+  refresh_token_expires_in Int?
+  user                     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
 
   @@unique([provider, providerAccountId])
   @@index([userId])
@@ -30,24 +66,12 @@ model Account {
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique @map("session_token") // Keep this mapping
+  sessionToken String   @unique @map("session_token")
   userId       String   @map("user_id")
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
-}
-
-model User {
-  id             String          @id @default(cuid())
-  name           String?
-  email          String?         @unique
-  emailVerified  DateTime?
-  image          String?
-  files          File[]
-  accounts       Account[]
-  sessions       Session[]
-  authenticators Authenticator[]
 }
 
 model VerificationToken {
@@ -58,7 +82,6 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-// Added in NextAuth.js v4.10.0 for WebAuthn support
 model Authenticator {
   id                   String  @id @default(cuid())
   credentialID         String  @unique
@@ -73,35 +96,147 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model File {
-  id           String          @id @default(cuid())
-  name         String
-  url          String          @db.Text
-  uploadStatus UploadStatus    @default(PENDING) @map("upload_status")
-  userId       String          @map("user_id")
-  user         User            @relation(fields: [userId], references: [id])
-  chunks       DocumentChunk[]
+enum Role {
+  USER
+  ADMIN
+}
 
-  createdAt DateTime @default(now()) @map("created_at")
+// ==========================================
+// TRAVEL BOOKING MODELS
+// ==========================================
+
+model Destination {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  country     String
+  description String? @db.Text
+  image       String?
+
+  tours Tour[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tour {
+  id              String      @id @default(cuid())
+  title           String
+  slug            String      @unique
+  summary         String      @db.Text
+  description     String      @db.Text
+  price           Decimal     @db.Decimal(10, 2)
+  currency        String      @default("USD")
+  durationDays    Int
+  maxGuests       Int         @default(10)
+  coverImage      String?
+  images          String?     @db.Text
+  featured        Boolean     @default(false)
+  published       Boolean     @default(true)
+  // 👇 NEW FIELDS
+  highlights      String?     @db.Text // JSON array of strings
+  included        String?     @db.Text // JSON array of strings
+  notIncluded     String?     @db.Text // JSON array of strings
+  itinerary       String?     @db.Text // JSON array of { day, title, description }
+  meetingPoint    String?
+  languages       String?     @db.Text // JSON array e.g. ["English", "Spanish"]
+  cancellationHrs Int         @default(24)
+  destinationId   String
+  destination     Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+
+  bookings Booking[]
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  wishlists Wishlist[]
+  reviews   Review[]
+
+  @@index([destinationId])
+  @@index([featured])
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+model Booking {
+  id        String @id @default(cuid())
+  reference String @unique @default(cuid())
+  userId    String
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tourId    String
+  tour      Tour   @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  startDate  DateTime
+  endDate    DateTime
+  guests     Int           @default(1)
+  totalPrice Decimal       @db.Decimal(10, 2)
+  currency   String        @default("USD")
+  status     BookingStatus @default(PENDING)
+
+  fullName        String
+  email           String
+  phone           String?
+  notes           String?       @db.Text
+  paymentStatus   PaymentStatus @default(UNPAID)
+  paymentIntentId String?       @unique
+  paidAt          DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  review    Review?
 
   @@index([userId])
-  @@map("files")
+  @@index([tourId])
+  @@index([status])
 }
 
-model DocumentChunk {
-  id        String                       @id @default(cuid())
-  content   String
-  fileId    String                       @map("file_id")
-  file      File                         @relation(fields: [fileId], references: [id], onDelete: Cascade)
-  embedding Unsupported("vector(1536)")?
-
-  @@index([fileId])
-  @@map("document_chunks")
-}
-
-enum UploadStatus {
-  PENDING
-  PROCESSING
-  COMPLETED
+enum PaymentStatus {
+  UNPAID
+  PAID
+  REFUNDED
   FAILED
+}
+
+model Wishlist {
+  id     String @id @default(cuid())
+  userId String
+  tourId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tour   Tour   @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, tourId])
+  @@index([userId])
+  @@index([tourId])
+}
+
+model Review {
+  id      String  @id @default(cuid())
+  rating  Int // 1-5
+  title   String?
+  comment String  @db.Text
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tourId String
+  tour   Tour   @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  bookingId String  @unique
+  booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  published Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, tourId]) // one review per user per tour
+  @@index([tourId])
+  @@index([userId])
+  @@index([rating])
 }

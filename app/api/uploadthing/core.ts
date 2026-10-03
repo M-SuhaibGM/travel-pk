@@ -1,36 +1,47 @@
-import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/Prisma";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { UploadThingError } from "uploadthing/server";
-import { processDocument } from "@/lib/processDocument";
-
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 
 const f = createUploadthing();
 
-export const ourFileRouter = {
-  pdfUploader: f({ pdf: { maxFileSize: "4MB" } })
-    .middleware(async () => {
-      const session = await auth();
-      if (!session?.user?.id) throw new UploadThingError("Unauthorized");
+async function requireAdmin() {
+  const session = await auth();
+  if (!session?.user?.id) throw new Error("Unauthorized");
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { role: true },
+  });
+  if (user?.role !== "ADMIN") throw new Error("Forbidden");
+  return session.user;
+}
 
-      return { userId: session.user.id };
+export const ourFileRouter = {
+  // Destination cover images
+  destinationImage: f({
+    image: { maxFileSize: "4MB", maxFileCount: 1 },
+  })
+    .middleware(async () => {
+      const user = await requireAdmin();
+      return { userId: user.id };
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      // 1. Create the file record in MySQL
-      const createdFile = await prisma.file.create({
-        data: {
-          name: file.name,
-          url: file.url,
-          userId: metadata.userId,
-          uploadStatus: "PROCESSING",
-        },
-      });
-
-      // 2. Process in background using createdFile.id ← fix here
-      processDocument(createdFile.id, file.url).catch(console.error);
-
-      return { fileId: createdFile.id };
+      console.log("✅ Destination image uploaded:", file.ufsUrl);
+      return { uploadedBy: metadata.userId, url: file.ufsUrl };
     }),
+
+  // Tour cover image (keep separate so you can extend later)
+  tourImage: f({
+    image: { maxFileSize: "4MB", maxFileCount: 1 },
+  })
+    .middleware(async () => {
+      const user = await requireAdmin();
+      return { userId: user.id };
+    })
+    .onUploadComplete(async ({ metadata, file }) => {
+      console.log("✅ Tour image uploaded:", file.ufsUrl);
+      return { uploadedBy: metadata.userId, url: file.ufsUrl };
+    }),
+
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;

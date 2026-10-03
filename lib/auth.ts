@@ -1,44 +1,34 @@
-import NextAuth from "next-auth"
-import Google from "next-auth/providers/google"
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import { prisma } from "./Prisma" 
-
+import NextAuth from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import Google from "next-auth/providers/google";
+import Apple from "next-auth/providers/apple";
+import { prisma } from "@/lib/prisma";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
-  // ... rest of config
-    providers: [
+  session: { strategy: "database" },
+  providers: [
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      // This ensures Google always sends the refresh_token on first login
-      authorization: {
-        params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code",
-        },
-      },
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      allowDangerousEmailAccountLinking: true,
+    }),
+    Apple({
+      clientId: process.env.APPLE_CLIENT_ID!,
+      clientSecret: process.env.APPLE_CLIENT_SECRET!,
     }),
   ],
-  session: {
-    strategy: "database", // Forces Auth.js to create a session in your MariaDB 'sessions' table
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-  },
   pages: {
-    signIn: "/auth", // Points to your custom login page
+    signIn: "/login",
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
-      console.log("Attempting sign in for:", user.email);
-      return true;
+    async session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+        // @ts-ignore
+        session.user.role = (user as any).role;
+      }
+      return session;
     },
   },
-  logger: {
-    error(code, ...args) {
-      console.error("Critical Auth Error:", code, args);
-    },
-  },
-  debug: false,
-  
-})
+});
