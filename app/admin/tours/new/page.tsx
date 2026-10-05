@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/db";
 import { TourForm } from "@/components/admin/tour-form";
 
 export const dynamic = "force-dynamic";

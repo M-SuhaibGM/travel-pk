@@ -13,10 +13,6 @@ const nextConfig: NextConfig = {
 
       // Google OAuth avatars (👇 ADD THESE)
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
-      { protocol: "https", hostname: "lh4.googleusercontent.com" },
-      { protocol: "https", hostname: "lh5.googleusercontent.com" },
-      { protocol: "https", hostname: "lh6.googleusercontent.com" },
-
       // Apple OAuth avatars (in case you use Apple later)
       { protocol: "https", hostname: "*.appleusercontent.com" },
 

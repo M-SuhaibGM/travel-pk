@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/db";
 import { StarRating } from "@/components/reviews/star-rating";
 import { ReviewAdminActions } from "./review-admin-actions";
 import { format } from "date-fns";

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/db";
 import { stripe } from "@/lib/stripe/server";
 import { resend, EMAIL_FROM } from "@/lib/resend";
 import { BookingConfirmationEmail } from "@/emails/booking-confirmation";

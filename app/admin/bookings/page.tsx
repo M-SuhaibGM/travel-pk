@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/db";
 import { StatusBadge } from "@/components/admin/status-badge";
 import { format } from "date-fns";
 import { BookingStatus } from "@prisma/client";

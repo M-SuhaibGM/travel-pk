@@ -7,6 +7,7 @@ import { NavbarCountry } from "./navbar-country";
 import { NavbarHelp } from "./navbar-help";
 import { NavbarUserMenu } from "./navbar-user-menu";
 import { Button } from "@/components/ui/button";
+import { NavbarThemeToggle } from "./navbar-theme-toggle";
 
 export async function Navbar() {
   const session = await auth();
@@ -35,6 +36,7 @@ export async function Navbar() {
         <div className="flex items-center gap-2">
           <NavbarCurrency />
           <NavbarCountry />
+          <NavbarThemeToggle />   
 
           <Link
             href="/account/wishlist"
@@ -50,7 +52,7 @@ export async function Navbar() {
             <NavbarUserMenu
               name={session.user.name ?? "User"}
               email={session.user.email ?? ""}
-              image={session.user.image ?? undefined}
+              image={session.user?.image ?? undefined}
               role={(session.user as any).role}  // 👈 pass role
             />
           ) : (

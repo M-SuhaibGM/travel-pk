@@ -41,7 +41,7 @@ export function NavbarUserMenu({ name, email, image, role }: Props) {
           {image ? (
             <Image
               src={image}
-              alt={name}
+              alt={name ?? "User"}
               width={36}
               height={36}
               className="h-9 w-9 rounded-full object-cover"

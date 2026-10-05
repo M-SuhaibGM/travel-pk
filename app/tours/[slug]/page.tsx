@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { parseJsonArray, type ItineraryItem } from "@/lib/tour-types";
 import { getTourRatingStats } from "@/lib/reviews";

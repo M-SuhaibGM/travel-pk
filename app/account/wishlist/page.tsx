@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/db";
 import { MapPin, Clock, Heart, ArrowRight } from "lucide-react";
 import { WishlistButton } from "@/components/wishlist-button";
 import { format } from "date-fns";

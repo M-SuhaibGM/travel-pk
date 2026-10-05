@@ -8,19 +8,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
-
-const currencies = [
-  { code: "USD", symbol: "$", label: "US Dollar" },
-  { code: "EUR", symbol: "€", label: "Euro" },
-  { code: "GBP", symbol: "£", label: "British Pound" },
-  { code: "PKR", symbol: "₨", label: "Pakistani Rupee" },
-  { code: "AED", symbol: "د.إ", label: "UAE Dirham" },
-  { code: "JPY", symbol: "¥", label: "Japanese Yen" },
-];
+import { useCurrency } from "@/components/providers/currency-provider";
+import { CURRENCIES, type CurrencyCode } from "@/lib/currency";
+import { useRouter } from "next/navigation";
 
 export function NavbarCurrency() {
-  const [selected, setSelected] = useState("USD");
+  const { currency, setCurrency } = useCurrency();
+  const router = useRouter();
+
+  function handleSelect(code: CurrencyCode) {
+    setCurrency(code);
+    // Refresh server components so prices update everywhere
+    router.refresh();
+  }
 
   return (
     <DropdownMenu>
@@ -30,16 +30,16 @@ export function NavbarCurrency() {
           size="sm"
           className="hidden h-9 gap-1 px-2 text-sm font-medium sm:flex"
         >
-          {selected}
+          {currency}
           <ChevronDown className="h-3.5 w-3.5" />
         </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-56">
-        {currencies.map((c) => (
+        {Object.values(CURRENCIES).map((c) => (
           <DropdownMenuItem
             key={c.code}
-            onClick={() => setSelected(c.code)}
+            onClick={() => handleSelect(c.code)}
             className="flex cursor-pointer items-center justify-between"
           >
             <span>
@@ -48,7 +48,7 @@ export function NavbarCurrency() {
                 {c.label}
               </span>
             </span>
-            {selected === c.code && <Check className="h-4 w-4" />}
+            {currency === c.code && <Check className="h-4 w-4" />}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

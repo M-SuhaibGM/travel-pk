@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 

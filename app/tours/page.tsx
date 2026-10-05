@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/db";
 import { auth } from "@/lib/auth";                          // 👈 MISSING IMPORT
 import { ToursFilters } from "./components/tours-filters";
 import { ToursGrid } from "./components/tours-grid";

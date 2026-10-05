@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth, signOut } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/db";
 
 export async function DELETE() {
   try {

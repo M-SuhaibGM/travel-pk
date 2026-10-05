@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { MapPin, Plus, Package } from "lucide-react";
 import { DestinationActions } from "./destination-actions";

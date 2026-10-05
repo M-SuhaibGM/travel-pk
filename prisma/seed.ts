@@ -1,5 +1,6 @@
+import "dotenv/config";   
 import { Prisma } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/db";
 
 // Helper to stringify arrays/objects
 const J = (v: any) => JSON.stringify(v);
