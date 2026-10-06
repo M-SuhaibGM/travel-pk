@@ -47,9 +47,9 @@ export function AdminSidebar({ user }: Props) {
   const pathname = usePathname();
 
   return (
-    <Sheet>
+    <Sheet    >
       {/* Trigger button — this opens the drawer */}
-      <SheetTrigger className="mt-12 "  asChild>
+      <SheetTrigger className="mt-12 " asChild>
         <Button
           variant="outline"
           size="icon"
@@ -61,7 +61,7 @@ export function AdminSidebar({ user }: Props) {
       </SheetTrigger>
 
       {/* Drawer */}
-      <SheetContent side="left" className="w-64 p-0">
+      <SheetContent aria-describedby={undefined} side="left" className="w-64 p-0">
         {/* Header with built-in X close button (top-right) */}
         <SheetHeader className="border-b px-6 py-4">
           <SheetTitle className="flex items-center gap-2 text-left">
