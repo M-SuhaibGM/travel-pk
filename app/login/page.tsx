@@ -10,7 +10,7 @@ export default async function LoginPage() {
   if (session?.user) redirect("/");
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-8">
       {/* Background image */}
       <Image
         src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920"
@@ -22,7 +22,7 @@ export default async function LoginPage() {
       <div className="absolute inset-0 bg-black/60" />
 
       {/* Card */}
-      <div className="relative z-10 w-full max-w-md rounded-2xl border border-white/10 bg-background/95 p-8 shadow-2xl backdrop-blur-md">
+      <div className="relative z-10 w-full max-w-md rounded-2xl border border-white/10 bg-background/95 p-6 shadow-2xl sm:p-8 backdrop-blur-md">
         {/* Logo */}
         <Link
           href="/"

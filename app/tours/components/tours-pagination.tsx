@@ -35,7 +35,7 @@ export function ToursPagination({ currentPage, totalPages, searchParams }: Props
   }
 
   return (
-    <div className="mt-10 flex items-center justify-center gap-1">
+    <div className="mt-8 flex flex-wrap items-center justify-center gap-1 sm:mt-10">
       {/* Prev */}
       {currentPage > 1 ? (
         <Link

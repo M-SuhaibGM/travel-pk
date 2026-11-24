@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
@@ -33,6 +33,21 @@ export function BookingSidebar({
 
   const total = useMemo(() => price * guests, [price, guests]);
 
+  // Mobile: show a sticky "Book now" bar until the booking card scrolls into view
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [showBar, setShowBar] = useState(false);
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) =>
+        setShowBar(!entry.isIntersecting && entry.boundingClientRect.top > 0),
+      { threshold: 0 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   // Get min date = today
   const today = new Date().toISOString().split("T")[0];
 
@@ -61,7 +76,35 @@ export function BookingSidebar({
   }
 
   return (
-    <div className="rounded-2xl border bg-card p-6 shadow-sm">
+    <>
+    {/* Sticky mobile bar */}
+    <div
+      className={`fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-3 border-t bg-background/95 px-4 py-3 shadow-[0_-4px_12px_rgba(0,0,0,0.08)] backdrop-blur transition-transform duration-200 lg:hidden ${
+        showBar ? "translate-y-0" : "translate-y-full"
+      }`}
+      aria-hidden={!showBar}
+    >
+      <div className="min-w-0">
+        <span className="text-xl font-bold text-[#00aa6c]">
+          ${price.toFixed(0)}
+        </span>
+        <span className="ml-1 text-xs text-muted-foreground">/ person</span>
+      </div>
+      <Button
+        type="button"
+        tabIndex={showBar ? 0 : -1}
+        onClick={() =>
+          document
+            .getElementById("booking")
+            ?.scrollIntoView({ behavior: "smooth", block: "start" })
+        }
+        className="h-11 shrink-0 bg-[#00aa6c] px-6 font-semibold text-white hover:bg-[#008f5b]"
+      >
+        Book now
+      </Button>
+    </div>
+
+    <div ref={cardRef} className="rounded-2xl border bg-card p-4 shadow-sm sm:p-6">
       {/* Price */}
       <div className="flex items-baseline justify-between">
         <div>
@@ -149,5 +192,6 @@ export function BookingSidebar({
         </div>
       </div>
     </div>
+    </>
   );
 }

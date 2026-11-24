@@ -14,10 +14,11 @@ import { CURRENCIES, type CurrencyCode as CC } from "@/lib/currency";
 import { US, GB, PK, AE, IN, DE, FR, JP } from "country-flag-icons/react/3x2";
 import { useEffect, useState } from "react";
 
-const FLAGS: Record<CountryCode, any> = { US, GB, PK, AE, IN, DE, FR, JP };
+export const FLAGS: Record<CountryCode, any> = { US, GB, PK, AE, IN, DE, FR, JP };
 const COOKIE = "preferred_country";
 
-export function NavbarCountry() {
+/** Shared by the desktop dropdown and the mobile menu. */
+export function useCountry() {
   const { setCurrency } = useCurrency();
   const [country, setCountry] = useState<CountryCode>("US");
 
@@ -43,12 +44,17 @@ export function NavbarCountry() {
     }
   }
 
+  return { country, selectCountry: handleSelect };
+}
+
+export function NavbarCountry() {
+  const { country, selectCountry: handleSelect } = useCountry();
   const CurrentFlag = FLAGS[country];
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="hidden h-9 gap-2 px-2 sm:flex">
+        <Button variant="ghost" size="sm" className="hidden h-9 gap-2 px-2 md:flex">
           <CurrentFlag className="h-5 w-7 rounded-sm shadow-sm" />
           <ChevronDown className="h-3.5 w-3.5" />
         </Button>

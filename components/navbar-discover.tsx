@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-const regions = [
+export const regions = [
   { label: "Top categories", href: "/tours" },
   { label: "Top Middle East & Africa tours", href: "/tours?region=middle-east-africa" },
   { label: "Top Asia tours", href: "/tours?region=asia" },
@@ -99,7 +99,7 @@ export function NavbarDiscover() {
           </div>
 
           {/* 2-column layout: Regions | Link grid */}
-          <div className="grid grid-cols-[280px_1fr] gap-0">
+          <div className="grid grid-cols-[220px_1fr] gap-0 lg:grid-cols-[280px_1fr]">
             {/* LEFT: Region list */}
             <div className="border-r py-2">
               {regions.map((region, i) => (
@@ -117,7 +117,7 @@ export function NavbarDiscover() {
             </div>
 
             {/* RIGHT: 3-column link grid */}
-            <div className="grid grid-cols-3 gap-8 px-8 py-6">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-0 px-6 py-6 lg:grid-cols-3 lg:gap-8 lg:px-8">
               {columns.slice(1).map((col, i) => (
                 <div key={i}>
                   {col.links.map((link) => (

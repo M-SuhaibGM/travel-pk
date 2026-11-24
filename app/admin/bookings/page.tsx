@@ -86,7 +86,7 @@ export default async function AdminBookingsPage({ searchParams }: Props) {
 
       <div className="overflow-hidden rounded-2xl border bg-card">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full min-w-175 text-sm">
             <thead className="border-b bg-muted/30 text-left text-xs uppercase text-muted-foreground">
               <tr>
                 <th className="px-4 py-3 font-medium">Reference</th>

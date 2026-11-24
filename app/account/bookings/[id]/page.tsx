@@ -91,7 +91,7 @@ export default async function BookingDetailPage({ params }: Props) {
           </p>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           {canPay && <PayNowButton bookingId={booking.id} />}
           {canCancel && <CancelBookingButton bookingId={booking.id} />}
         </div>
@@ -127,7 +127,7 @@ export default async function BookingDetailPage({ params }: Props) {
               />
             </div>
           )}
-          <div className="flex-1 p-6">
+          <div className="flex-1 p-4 sm:p-6">
             <h2 className="text-xl font-semibold">{booking.tour.title}</h2>
             <div className="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
               <MapPin className="h-4 w-4" />
@@ -186,8 +186,8 @@ export default async function BookingDetailPage({ params }: Props) {
       </div>
 
       {/* Payment summary */}
-      <div className="mt-6 rounded-2xl border bg-card p-6">
-        <div className="flex items-center justify-between">
+      <div className="mt-6 rounded-2xl border bg-card p-4 sm:p-6">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <h3 className="text-lg font-semibold">Payment summary</h3>
           <PaymentStatusBadge status={paymentStatus} />
         </div>
@@ -336,7 +336,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border bg-card p-6">
+    <div className="rounded-2xl border bg-card p-4 sm:p-6">
       <h3 className="text-lg font-semibold">{title}</h3>
       <div className="mt-4 space-y-3">{children}</div>
     </div>
@@ -354,11 +354,11 @@ function DetailRow({
 }) {
   return (
     <div className="flex items-start justify-between gap-4 text-sm">
-      <span className="flex items-center gap-2 text-muted-foreground">
+      <span className="flex shrink-0 items-center gap-2 text-muted-foreground">
         <Icon className="h-4 w-4" />
         {label}
       </span>
-      <span className="text-right font-medium">{value}</span>
+      <span className="min-w-0 break-words text-right font-medium">{value}</span>
     </div>
   );
 }

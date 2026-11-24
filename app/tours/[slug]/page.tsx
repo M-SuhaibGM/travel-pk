@@ -163,25 +163,25 @@ export default async function TourDetailPage({ params }: Props) {
     <main className="min-h-screen bg-background">
       {/* Breadcrumb */}
       <div className="border-b bg-muted/30">
-        <div className="mx-auto max-w-7xl px-6 py-4 text-sm text-muted-foreground">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-2 gap-y-1 px-4 py-3 text-sm text-muted-foreground sm:px-6 sm:py-4">
           <Link href="/tours" className="hover:text-primary">
             All tours
           </Link>
-          <span className="mx-2">/</span>
+          <span>/</span>
           <Link
             href={`/tours?destination=${tour.destination.slug}`}
             className="hover:text-primary"
           >
             {tour.destination.name}
           </Link>
-          <span className="mx-2">/</span>
-          <span className="text-foreground">{tour.title}</span>
+          <span>/</span>
+          <span className="min-w-0 break-words text-foreground">{tour.title}</span>
         </div>
       </div>
 
       {/* ============ MAIN GRID ============ */}
-      <section className="mx-auto max-w-7xl px-6 py-10">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_400px]">
+      <section className="mx-auto max-w-7xl px-4 py-6 pb-24 sm:px-6 sm:py-10 lg:pb-10">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_400px] lg:gap-10">
           {/* LEFT: content */}
           <div>
             {/* Header */}
@@ -193,7 +193,7 @@ export default async function TourDetailPage({ params }: Props) {
                       Featured
                     </span>
                   )}
-                  <h1 className="mt-2 text-3xl font-bold leading-tight md:text-4xl">
+                  <h1 className="mt-2 break-words text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
                     {tour.title}
                   </h1>
                 </div>
@@ -206,7 +206,7 @@ export default async function TourDetailPage({ params }: Props) {
                 />
               </div>
 
-              <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
+              <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground sm:gap-x-5">
                 <span className="flex items-center gap-1">
                   <MapPin className="h-4 w-4" />
                   {tour.destination.name}, {tour.destination.country}
@@ -244,7 +244,7 @@ export default async function TourDetailPage({ params }: Props) {
 
             {/* Overview */}
             <section className="mt-10">
-              <h2 className="text-2xl font-bold">Overview</h2>
+              <h2 className="text-xl font-bold sm:text-2xl">Overview</h2>
               <p className="mt-3 whitespace-pre-wrap leading-relaxed text-muted-foreground">
                 {tour.description}
               </p>
@@ -306,11 +306,11 @@ export default async function TourDetailPage({ params }: Props) {
             {itinerary.length > 0 && (
               <section className="mt-10">
                 <h2 className="text-2xl font-bold">Itinerary</h2>
-                <ol className="mt-5 space-y-4">
+                <ol className="mt-5 space-y-3 sm:space-y-4">
                   {itinerary.map((item) => (
                     <li
                       key={item.day}
-                      className="flex gap-4 rounded-xl border bg-card p-5"
+                      className="flex gap-3 rounded-xl border bg-card p-4 sm:gap-4 sm:p-5"
                     >
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#00aa6c] font-bold text-white">
                         {item.day}
@@ -398,7 +398,7 @@ export default async function TourDetailPage({ params }: Props) {
           </div>
 
           {/* RIGHT: sticky booking sidebar */}
-          <aside className="lg:sticky lg:top-24 lg:h-fit">
+          <aside id="booking" className="scroll-mt-20 lg:sticky lg:top-24 lg:h-fit">
             <BookingSidebar
               tourId={tour.id}
               tourSlug={tour.slug}

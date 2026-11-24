@@ -63,10 +63,10 @@ export default async function WishlistPage() {
               )}
 
               {/* Details */}
-              <div className="flex flex-1 flex-col justify-between">
+              <div className="flex min-w-0 flex-1 flex-col justify-between">
                 <div>
                   <div className="flex items-start justify-between gap-3">
-                    <div>
+                    <div className="min-w-0">
                       <h3 className="font-semibold leading-tight sm:text-lg">
                         {tour.title}
                       </h3>
@@ -121,7 +121,7 @@ export default async function WishlistPage() {
 
 function EmptyState() {
   return (
-    <div className="mt-10 rounded-2xl border border-dashed p-16 text-center">
+    <div className="mt-10 rounded-2xl border border-dashed p-8 text-center sm:p-16">
       <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-50">
         <Heart className="h-8 w-8 text-red-400" />
       </div>

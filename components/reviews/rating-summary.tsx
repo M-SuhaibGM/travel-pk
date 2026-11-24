@@ -16,7 +16,7 @@ export function RatingSummary({ stats }: { stats: RatingStats }) {
   const levels = [5, 4, 3, 2, 1] as const;
 
   return (
-    <div className="rounded-2xl border bg-card p-6">
+    <div className="rounded-2xl border bg-card p-4 sm:p-6">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-[200px_1fr]">
         {/* Left: big number */}
         <div className="flex flex-col items-center justify-center border-b pb-4 sm:border-b-0 sm:border-r sm:pb-0">

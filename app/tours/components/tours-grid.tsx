@@ -65,7 +65,7 @@ export function ToursGrid({ tours }: { tours: Tour[] }) {
           </div>
 
           {/* Content */}
-          <div className="p-5">
+          <div className="p-4 sm:p-5">
             <div className="flex items-center gap-1 text-xs text-muted-foreground">
               <MapPin className="h-3.5 w-3.5" />
               {tour.destination.name}, {tour.destination.country}
@@ -83,7 +83,6 @@ export function ToursGrid({ tours }: { tours: Tour[] }) {
                 <Clock className="h-3.5 w-3.5" />
                 {tour.durationDays} {tour.durationDays === 1 ? "day" : "days"}
               </span>
-             // In the meta row, replace the hard-coded 4.8:
               <span className="flex items-center gap-1">
                 <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                 {tour.reviewCount && tour.reviewCount > 0

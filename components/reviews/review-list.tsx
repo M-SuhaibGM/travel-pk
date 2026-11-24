@@ -23,7 +23,7 @@ type Props = {
 export function ReviewList({ reviews }: Props) {
   if (reviews.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed p-12 text-center">
+      <div className="rounded-2xl border border-dashed p-8 text-center sm:p-12">
         <p className="text-sm text-muted-foreground">
           No reviews yet. Be the first to share your experience!
         </p>
@@ -41,9 +41,9 @@ export function ReviewList({ reviews }: Props) {
         return (
           <div
             key={review.id}
-            className="rounded-2xl border bg-card p-5"
+            className="rounded-2xl border bg-card p-4 sm:p-5"
           >
-            <div className="flex items-start gap-4">
+            <div className="flex items-start gap-3 sm:gap-4">
               {/* Avatar */}
               {review.user.image ? (
                 <Image

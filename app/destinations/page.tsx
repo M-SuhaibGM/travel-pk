@@ -80,13 +80,13 @@ export default async function DestinationsPage({ searchParams }: Props) {
     <main className="min-h-screen bg-background">
       {/* ============ HERO ============ */}
       <section className="border-b bg-muted/30">
-        <div className="mx-auto max-w-7xl px-6 py-14">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Compass className="h-4 w-4" />
             <span>Explore the world</span>
           </div>
 
-          <h1 className="mt-2 text-3xl font-bold md:text-5xl">
+          <h1 className="mt-2 text-2xl font-bold sm:text-3xl md:text-5xl">
             {countryFilter
               ? `Destinations in ${countryFilter}`
               : "Find your next destination"}
@@ -141,7 +141,7 @@ export default async function DestinationsPage({ searchParams }: Props) {
           </form>
 
           {/* Stats */}
-          <div className="mt-6 flex flex-wrap gap-6 text-sm text-muted-foreground">
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
             <span className="flex items-center gap-1.5">
               <MapPin className="h-4 w-4" />
               <strong className="text-foreground">{destinations.length}</strong>{" "}
@@ -157,8 +157,8 @@ export default async function DestinationsPage({ searchParams }: Props) {
 
       {/* ============ NO RESULTS ============ */}
       {destinations.length === 0 && (
-        <section className="mx-auto max-w-7xl px-6 py-20">
-          <div className="rounded-2xl border border-dashed p-16 text-center">
+        <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
+          <div className="rounded-2xl border border-dashed p-8 text-center sm:p-16">
             <Search className="mx-auto h-10 w-10 text-muted-foreground" />
             <h3 className="mt-4 text-lg font-semibold">No destinations found</h3>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -175,13 +175,13 @@ export default async function DestinationsPage({ searchParams }: Props) {
 
       {/* ============ FEATURED ============ */}
       {featured.length > 0 && !query && !countryFilter && (
-        <section className="mx-auto max-w-7xl px-6 py-12">
+        <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
           <div className="mb-6 flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-[#00aa6c]" />
             <h2 className="text-xl font-semibold">Top destinations</h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((d) => (
               <Link
                 key={d.id}
@@ -222,7 +222,7 @@ export default async function DestinationsPage({ searchParams }: Props) {
 
       {/* ============ ALL DESTINATIONS ============ */}
       {rest.length > 0 && (
-        <section className="mx-auto max-w-7xl px-6 py-12">
+        <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-xl font-semibold">
               {query || countryFilter
@@ -294,15 +294,15 @@ export default async function DestinationsPage({ searchParams }: Props) {
       )}
 
       {/* ============ CTA ============ */}
-      <section className="border-t bg-muted/30 py-16">
-        <div className="mx-auto max-w-3xl px-6 text-center">
+      <section className="border-t bg-muted/30 py-12 sm:py-16">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
           <h2 className="text-2xl font-bold md:text-3xl">
             Can&apos;t decide where to go?
           </h2>
           <p className="mt-3 text-muted-foreground">
             Browse all our tours and let inspiration find you.
           </p>
-          <div className="mt-6 flex justify-center gap-3">
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link href="/tours">
               <Button size="lg" className="bg-[#00aa6c] text-white hover:bg-[#008f5b]">
                 Browse all tours

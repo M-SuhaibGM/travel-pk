@@ -18,7 +18,7 @@ export default function GlobalError({
   }, [error]);
 
   return (
-    <main className="flex min-h-[80vh] items-center justify-center bg-background px-6">
+    <main className="flex min-h-[80vh] items-center justify-center bg-background px-4 sm:px-6">
       <div className="mx-auto max-w-lg text-center">
         {/* Icon */}
         <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-destructive/10">

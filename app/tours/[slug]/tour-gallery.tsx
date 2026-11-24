@@ -24,7 +24,7 @@ export function TourGallery({ images, title }: Props) {
   return (
     <div className="space-y-3">
       {/* Main image */}
-      <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
+      <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl sm:aspect-video sm:rounded-2xl">
         <Image
           src={clean[active]}
           alt={title}
@@ -37,13 +37,13 @@ export function TourGallery({ images, title }: Props) {
 
       {/* Thumbnails */}
       {clean.length > 1 && (
-        <div className="grid grid-cols-4 gap-3">
+        <div className="-mx-1 flex snap-x gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:grid sm:grid-cols-4 sm:gap-3 sm:overflow-visible sm:px-0 sm:pb-0">
           {clean.map((img, i) => (
             <button
               key={i}
               onClick={() => setActive(i)}
               className={cn(
-                "relative aspect-4/3 overflow-hidden rounded-lg border-2 transition",
+                "relative aspect-4/3 w-24 shrink-0 snap-start overflow-hidden rounded-lg border-2 transition sm:w-auto",
                 i === active
                   ? "border-[#00aa6c]"
                   : "border-transparent hover:border-muted-foreground/40"

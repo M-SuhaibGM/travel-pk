@@ -8,6 +8,7 @@ import { NavbarHelp } from "./navbar-help";
 import { NavbarUserMenu } from "./navbar-user-menu";
 import { Button } from "@/components/ui/button";
 import { NavbarThemeToggle } from "./navbar-theme-toggle";
+import { NavbarMobileMenu } from "./navbar-mobile-menu";
 
 export async function Navbar() {
   const session = await auth();
@@ -15,14 +16,14 @@ export async function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-350 items-center justify-between gap-4 px-6">
+      <div className="mx-auto flex h-16 max-w-350 items-center justify-between gap-2 px-4 sm:gap-4 sm:px-6">
         {/* LEFT */}
-        <div className="flex items-center gap-6">
+        <div className="flex min-w-0 items-center gap-6">
           <Link href="/" className="flex items-center gap-2">
             <span className="text-2xl font-bold tracking-tight text-[#00aa6c]">
               travel
             </span>
-            <span className="hidden text-[10px] leading-tight text-muted-foreground sm:block">
+            <span className="hidden text-[10px] leading-tight text-muted-foreground lg:block">
               a TripAdvisor
               <br />
               company
@@ -33,7 +34,7 @@ export async function Navbar() {
         </div>
 
         {/* RIGHT */}
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-2">
           <NavbarCurrency />
           <NavbarCountry />
           <NavbarThemeToggle />   
@@ -41,7 +42,7 @@ export async function Navbar() {
           <Link
             href="/account/wishlist"
             aria-label="Wishlist"
-            className="hidden h-9 w-9 items-center justify-center rounded-full transition hover:bg-muted sm:flex"
+            className="hidden h-9 w-9 items-center justify-center rounded-full transition hover:bg-muted md:flex"
           >
             <Heart className="h-5 w-5" />
           </Link>
@@ -62,6 +63,8 @@ export async function Navbar() {
               </Button>
             </Link>
           )}
+
+          <NavbarMobileMenu />
         </div>
       </div>
     </header>

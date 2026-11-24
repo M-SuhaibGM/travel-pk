@@ -121,11 +121,11 @@ export default async function HomePage() {
       <div className="relative">
         <HeroSlider />
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 pb-16">
-          <div className="pointer-events-auto mx-auto max-w-7xl px-6">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 pb-12 sm:pb-16">
+          <div className="pointer-events-auto mx-auto max-w-7xl px-4 sm:px-6">
             <form
               action="/tours"
-              className="grid w-full max-w-4xl grid-cols-1 gap-2 rounded-2xl bg-white/95 p-3 shadow-xl md:grid-cols-4"
+              className="grid w-full max-w-4xl grid-cols-1 gap-2 rounded-2xl bg-white/95 p-2.5 shadow-xl sm:grid-cols-2 sm:p-3 md:grid-cols-4"
             >
               <div className="flex items-center gap-2 rounded-xl bg-white px-3 py-2">
                 <MapPin className="h-5 w-5 text-muted-foreground" />
@@ -154,18 +154,18 @@ export default async function HomePage() {
                   className="border-0 shadow-none focus-visible:ring-0"
                 />
               </div>
-              <Button type="submit" size="lg" className="h-full w-full gap-2">
+              <Button type="submit" size="lg" className="h-11 w-full gap-2 sm:h-full">
                 <Search className="h-5 w-5" />
                 Search
               </Button>
             </form>
 
-            <div className="mt-4 flex flex-wrap gap-3 text-sm text-white">
+            <div className="mt-3 flex flex-wrap gap-2 text-xs text-white sm:mt-4 sm:gap-3 sm:text-sm">
               {["Bali", "Paris", "Dubai", "Istanbul", "Maldives"].map((d) => (
                 <Link
                   key={d}
                   href={`/tours?destination=${d.toLowerCase()}`}
-                  className="rounded-full border border-white/40 px-4 py-1.5 backdrop-blur transition hover:bg-white/20"
+                  className="rounded-full border border-white/40 px-3 py-1 backdrop-blur transition hover:bg-white/20 sm:px-4 sm:py-1.5"
                 >
                   {d}
                 </Link>
@@ -177,7 +177,7 @@ export default async function HomePage() {
 
       {/* ============ TRUST BAR ============ */}
       <section className="border-b bg-muted/30 py-8">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 md:grid-cols-4">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 sm:gap-6 sm:px-6 md:grid-cols-4">
           {[
             { icon: Globe2, label: "500+ Destinations" },
             { icon: ShieldCheck, label: "Secure Payments" },
@@ -193,10 +193,10 @@ export default async function HomePage() {
       </section>
 
       {/* ============ FEATURED TOURS ============ */}
-      <section className="mx-auto max-w-7xl px-6 py-16">
-        <div className="mb-8 flex items-end justify-between">
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+        <div className="mb-6 flex items-end justify-between gap-3 sm:mb-8">
           <div>
-            <h2 className="text-3xl font-bold">Featured Tours</h2>
+            <h2 className="text-2xl font-bold sm:text-3xl">Featured Tours</h2>
             <p className="mt-1 text-muted-foreground">
               Our most-loved experiences around the world
             </p>
@@ -221,15 +221,15 @@ export default async function HomePage() {
 
       {/* ============ TOP DESTINATIONS ============ */}
       {destinations.length > 0 && (
-        <section className="bg-muted/30 py-16">
-          <div className="mx-auto max-w-7xl px-6">
-            <div className="mb-8 flex items-end justify-between">
+        <section className="bg-muted/30 py-12 sm:py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6">
+            <div className="mb-6 flex items-end justify-between gap-3 sm:mb-8">
               <div>
                 <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-[#00aa6c]">
                   <TrendingUp className="h-4 w-4" />
                   Trending
                 </div>
-                <h2 className="mt-2 text-3xl font-bold">Top Destinations</h2>
+                <h2 className="mt-2 text-2xl font-bold sm:text-3xl">Top Destinations</h2>
                 <p className="mt-1 text-muted-foreground">
                   Explore the most popular places to visit
                 </p>
@@ -277,14 +277,14 @@ export default async function HomePage() {
 
       {/* ============ RECOMMENDED FOR YOU ============ */}
       {recommended.length > 0 && (
-        <section className="mx-auto max-w-7xl px-6 py-16">
-          <div className="mb-8 flex items-end justify-between">
+        <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+          <div className="mb-6 flex items-end justify-between gap-3 sm:mb-8">
             <div>
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-[#00aa6c]">
                 <Sparkles className="h-4 w-4" />
                 Personalized
               </div>
-              <h2 className="mt-2 text-3xl font-bold">
+              <h2 className="mt-2 text-2xl font-bold sm:text-3xl">
                 Recommended for you
               </h2>
               <p className="mt-1 text-muted-foreground">
@@ -306,10 +306,10 @@ export default async function HomePage() {
 
       {/* ============ TOP CITIES ============ */}
       {cities.length > 0 && (
-        <section className="bg-muted/30 py-16">
-          <div className="mx-auto max-w-7xl px-6">
+        <section className="bg-muted/30 py-12 sm:py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6">
             <div className="mb-8">
-              <h2 className="text-3xl font-bold">Top cities to explore</h2>
+              <h2 className="text-2xl font-bold sm:text-3xl">Top cities to explore</h2>
               <p className="mt-1 text-muted-foreground">
                 Popular destinations our travelers love
               </p>
@@ -360,13 +360,13 @@ export default async function HomePage() {
       )}
 
       {/* ============ CTA ============ */}
-      <section className="bg-primary/5 py-16">
-        <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="text-3xl font-bold">Ready to explore the world?</h2>
+      <section className="bg-primary/5 py-12 sm:py-16">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
+          <h2 className="text-2xl font-bold sm:text-3xl">Ready to explore the world?</h2>
           <p className="mt-3 text-muted-foreground">
             Create an account and start booking your dream trip today.
           </p>
-          <div className="mt-6 flex justify-center gap-3">
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link href="/login">
               <Button size="lg">Get Started</Button>
             </Link>
@@ -419,7 +419,7 @@ function TourCard({ tour }: TourCardProps) {
           </div>
         )}
       </div>
-      <div className="p-5">
+      <div className="p-4 sm:p-5">
         <div className="flex items-center gap-1 text-xs text-muted-foreground">
           <MapPin className="h-3.5 w-3.5" />
           {tour.destination.name}, {tour.destination.country}

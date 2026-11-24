@@ -59,7 +59,7 @@ export default async function MyBookingsPage({ searchParams }: Props) {
       </p>
 
       {/* Tabs */}
-      <div className="mt-6 flex flex-wrap gap-2 border-b pb-2">
+      <div className="-mx-4 mt-6 flex gap-2 overflow-x-auto border-b px-4 pb-2 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
         {tabs.map((tab) => (
           <Link
             key={tab.value}
@@ -68,7 +68,7 @@ export default async function MyBookingsPage({ searchParams }: Props) {
                 ? "/account/bookings"
                 : `/account/bookings?status=${tab.value}`
             }
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
+            className={`shrink-0 whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition ${
               activeTab === tab.value
                 ? "bg-[#00aa6c] text-white"
                 : "text-muted-foreground hover:bg-muted"
@@ -119,10 +119,10 @@ export default async function MyBookingsPage({ searchParams }: Props) {
               )}
 
               {/* Details */}
-              <div className="flex flex-1 flex-col justify-between">
+              <div className="flex min-w-0 flex-1 flex-col justify-between">
                 <div>
                   <div className="flex items-start justify-between gap-3">
-                    <div>
+                    <div className="min-w-0">
                       <h3 className="font-semibold leading-tight sm:text-lg">
                         {booking.tour.title}
                       </h3>
@@ -153,7 +153,7 @@ export default async function MyBookingsPage({ searchParams }: Props) {
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center justify-between border-t pt-3">
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t pt-3">
                   <span className="text-sm text-muted-foreground">
                     Ref:{" "}
                     <span className="font-mono font-medium text-foreground">
@@ -190,7 +190,7 @@ function EmptyState({ activeTab }: { activeTab: string }) {
   };
 
   return (
-    <div className="mt-10 rounded-2xl border border-dashed p-16 text-center">
+    <div className="mt-10 rounded-2xl border border-dashed p-8 text-center sm:p-16">
       <MapPin className="mx-auto h-10 w-10 text-muted-foreground" />
       <h3 className="mt-4 text-lg font-semibold">
         {messages[activeTab] ?? "No bookings found"}

@@ -63,7 +63,7 @@ export default async function ProfilePage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold">Profile</h1>
+      <h1 className="text-2xl font-bold sm:text-3xl">Profile</h1>
       <p className="mt-1 text-muted-foreground">
         Manage your account and view your travel history
       </p>
@@ -72,7 +72,7 @@ export default async function ProfilePage() {
       <div className="mt-8 overflow-hidden rounded-2xl border bg-card">
         <div className="h-32 bg-gradient-to-r from-[#00aa6c] to-[#008f5b]" />
 
-        <div className="px-6 pb-6">
+        <div className="px-4 pb-6 sm:px-6">
           <div className="-mt-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             {/* Avatar */}
             <div className="flex items-end gap-4">
@@ -105,7 +105,7 @@ export default async function ProfilePage() {
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-muted-foreground">{user.email}</p>
+                <p className="break-all text-sm text-muted-foreground">{user.email}</p>
               </div>
             </div>
           </div>
@@ -155,7 +155,7 @@ export default async function ProfilePage() {
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Edit profile */}
         <div className="lg:col-span-2">
-          <div className="rounded-2xl border bg-card p-6">
+          <div className="rounded-2xl border bg-card p-4 sm:p-6">
             <div className="flex items-center gap-2">
               <User className="h-5 w-5 text-muted-foreground" />
               <h3 className="text-lg font-semibold">Account information</h3>
@@ -175,7 +175,7 @@ export default async function ProfilePage() {
                 <Mail className="h-4 w-4" />
                 Email address
               </div>
-              <p className="mt-1 text-sm font-medium">{user.email}</p>
+              <p className="mt-1 break-all text-sm font-medium">{user.email}</p>
               <p className="mt-1 text-xs text-muted-foreground">
                 Email is linked to your {user.email?.includes("@gmail")
                   ? "Google"

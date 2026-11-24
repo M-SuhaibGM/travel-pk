@@ -4,7 +4,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, X, Loader2 } from "lucide-react";
+import { Search, X, Loader2, SlidersHorizontal, ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type Destination = {
   id: string;
@@ -38,6 +39,7 @@ export function ToursFilters({ destinations, currentFilters }: Props) {
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
+  const [open, setOpen] = useState(false); // mobile only; always open on lg+
   const [q, setQ] = useState(currentFilters.q ?? "");
   const [minPrice, setMinPrice] = useState(currentFilters.minPrice ?? "");
   const [maxPrice, setMaxPrice] = useState(currentFilters.maxPrice ?? "");
@@ -71,8 +73,46 @@ export function ToursFilters({ destinations, currentFilters }: Props) {
     currentFilters.duration ||
     currentFilters.sort;
 
+  const activeCount = [
+    currentFilters.q,
+    currentFilters.destination,
+    currentFilters.minPrice,
+    currentFilters.maxPrice,
+    currentFilters.duration,
+    currentFilters.sort,
+  ].filter(Boolean).length;
+
   return (
-    <div className="space-y-6 rounded-2xl border bg-card p-6">
+    <div className="rounded-2xl border bg-card">
+      {/* Mobile toggle */}
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        aria-controls="tours-filters-panel"
+        className="flex w-full items-center justify-between p-4 text-sm font-semibold lg:hidden"
+      >
+        <span className="flex items-center gap-2">
+          <SlidersHorizontal className="h-4 w-4" />
+          Filters &amp; sort
+          {activeCount > 0 && (
+            <span className="rounded-full bg-[#00aa6c] px-2 py-0.5 text-xs text-white">
+              {activeCount}
+            </span>
+          )}
+        </span>
+        <ChevronDown
+          className={cn("h-4 w-4 transition-transform", open && "rotate-180")}
+        />
+      </button>
+
+      <div
+        id="tours-filters-panel"
+        className={cn(
+          "space-y-6 border-t p-4 sm:p-6 lg:block lg:border-t-0",
+          open ? "block" : "hidden"
+        )}
+      >
       {/* Search */}
       <div>
         <label className="mb-2 block text-sm font-semibold">Search</label>
@@ -185,6 +225,7 @@ export function ToursFilters({ destinations, currentFilters }: Props) {
           Clear filters
         </Button>
       )}
+      </div>
     </div>
   );
 }

@@ -61,11 +61,27 @@ export function HeroSlider() {
   const next = () => setIndex((i) => (i + 1) % slides.length);
   const prev = () => setIndex((i) => (i - 1 + slides.length) % slides.length);
 
+  // Touch swipe support
+  const touchStartX = useRef<number | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (Math.abs(dx) < 50) return;
+    if (dx < 0) next();
+    else prev();
+  };
+
   return (
     <section
-      className="relative h-[85vh] w-full overflow-hidden"
+      className="relative h-[92svh] min-h-190 w-full overflow-hidden md:h-[85vh] md:min-h-140"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     >
       {/* Slides */}
       {slides.map((slide, i) => (
@@ -88,11 +104,11 @@ export function HeroSlider() {
       ))}
 
       {/* Text content (updates with index) */}
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-center px-6 text-white">
-        <h1 className="max-w-3xl text-4xl font-bold leading-tight transition-opacity duration-700 md:text-6xl">
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-start px-4 pt-10 text-white sm:px-6 sm:pt-16 md:justify-center md:pt-0">
+        <h1 className="max-w-3xl text-3xl font-bold leading-tight transition-opacity duration-700 sm:text-4xl md:text-6xl">
           {slides[index].title}
         </h1>
-        <p className="mt-4 max-w-2xl text-lg text-white/90 transition-opacity duration-700 md:text-xl">
+        <p className="mt-3 max-w-2xl text-base text-white/90 transition-opacity duration-700 sm:mt-4 sm:text-lg md:text-xl">
           {slides[index].subtitle}
         </p>
 
@@ -104,7 +120,7 @@ export function HeroSlider() {
         type="button"
         onClick={prev}
         aria-label="Previous slide"
-        className="absolute left-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white backdrop-blur transition hover:bg-black/50 md:left-6 md:h-12 md:w-12"
+        className="absolute left-4 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white backdrop-blur transition hover:bg-black/50 md:left-6 md:flex md:h-12 md:w-12"
       >
         <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
       </button>
@@ -114,13 +130,13 @@ export function HeroSlider() {
         type="button"
         onClick={next}
         aria-label="Next slide"
-        className="absolute right-4 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white backdrop-blur transition hover:bg-black/50 md:right-6 md:h-12 md:w-12"
+        className="absolute right-4 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white backdrop-blur transition hover:bg-black/50 md:right-6 md:flex md:h-12 md:w-12"
       >
         <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
       </button>
 
       {/* Dot indicators */}
-      <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+      <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2 sm:bottom-6">
         {slides.map((_, i) => (
           <button
             key={i}

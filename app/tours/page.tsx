@@ -106,12 +106,12 @@ export default async function ToursPage({ searchParams }: Props) {
     <main className="min-h-screen bg-background">
       {/* ============ HEADER ============ */}
       <section className="border-b bg-muted/30">
-        <div className="mx-auto max-w-7xl px-6 py-10">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Compass className="h-4 w-4" />
             <span>All tours</span>
           </div>
-          <h1 className="mt-2 text-3xl font-bold md:text-4xl">
+          <h1 className="mt-2 text-2xl font-bold sm:text-3xl md:text-4xl">
             {sp.destination
               ? `Tours in ${
                   destinations.find((d) => d.slug === sp.destination)?.name ??
@@ -126,8 +126,8 @@ export default async function ToursPage({ searchParams }: Props) {
       </section>
 
       {/* ============ MAIN ============ */}
-      <section className="mx-auto max-w-7xl px-6 py-10">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
+      <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-[280px_1fr]">
           {/* Filters sidebar */}
           <aside className="lg:sticky lg:top-24 lg:h-fit">
             <Suspense fallback={<FiltersSkeleton />}>
@@ -163,7 +163,7 @@ export default async function ToursPage({ searchParams }: Props) {
 // ==========================================
 function EmptyState() {
   return (
-    <div className="rounded-2xl border border-dashed p-16 text-center">
+    <div className="rounded-2xl border border-dashed p-8 text-center sm:p-16">
       <SlidersHorizontal className="mx-auto h-10 w-10 text-muted-foreground" />
       <h3 className="mt-4 text-lg font-semibold">No tours found</h3>
       <p className="mt-1 text-sm text-muted-foreground">

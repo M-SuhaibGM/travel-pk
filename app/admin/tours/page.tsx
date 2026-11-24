@@ -82,7 +82,7 @@ export default async function AdminToursPage({ searchParams }: Props) {
       {/* Table */}
       <div className="overflow-hidden rounded-2xl border bg-card">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-175">
             <thead className="border-b bg-muted/30 text-left text-xs uppercase text-muted-foreground">
               <tr>
                 <th className="px-4 py-3 font-medium">Tour</th>

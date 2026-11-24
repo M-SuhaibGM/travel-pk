@@ -237,7 +237,7 @@ function CheckoutForm() {
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
             {/* Payment Element */}
-            <div className="rounded-2xl border bg-card p-6">
+            <div className="rounded-2xl border bg-card p-4 sm:p-6">
                 <h2 className="mb-4 text-lg font-semibold">Payment details</h2>
                 <PaymentElement
                     options={{

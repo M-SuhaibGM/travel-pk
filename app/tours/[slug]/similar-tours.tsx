@@ -15,8 +15,8 @@ type Tour = {
 
 export function SimilarTours({ tours }: { tours: Tour[] }) {
   return (
-    <section className="border-t bg-muted/30 py-16">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="border-t bg-muted/30 py-12 sm:py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <h2 className="text-2xl font-bold">You might also like</h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Other experiences in the same destination

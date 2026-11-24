@@ -3,7 +3,7 @@ export default function ToursLoading() {
     <main className="min-h-screen bg-background">
       {/* Header skeleton */}
       <section className="border-b bg-muted/30">
-        <div className="mx-auto max-w-7xl px-6 py-10">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
           <div className="h-4 w-24 animate-pulse rounded bg-muted" />
           <div className="mt-3 h-9 w-64 animate-pulse rounded bg-muted" />
           <div className="mt-2 h-4 w-40 animate-pulse rounded bg-muted" />
@@ -11,7 +11,7 @@ export default function ToursLoading() {
       </section>
 
       {/* Body skeleton */}
-      <section className="mx-auto max-w-7xl px-6 py-10">
+      <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
           {/* Sidebar skeleton */}
           <aside className="space-y-4">

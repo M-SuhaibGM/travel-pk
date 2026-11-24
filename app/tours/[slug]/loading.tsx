@@ -3,12 +3,12 @@ export default function TourDetailLoading() {
     <main className="min-h-screen bg-background">
       {/* Breadcrumb */}
       <div className="border-b bg-muted/30">
-        <div className="mx-auto max-w-7xl px-6 py-4">
-          <div className="h-4 w-64 animate-pulse rounded bg-muted" />
+        <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 sm:py-4">
+          <div className="h-4 w-full max-w-64 animate-pulse rounded bg-muted" />
         </div>
       </div>
 
-      <section className="mx-auto max-w-7xl px-6 py-10">
+      <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-10">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_400px]">
           {/* LEFT */}
           <div className="space-y-6">

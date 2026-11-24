@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
-const helpItems = [
+export const helpItems = [
   {
     icon: BookOpen,
     title: "Help Center",
@@ -45,7 +45,7 @@ export function NavbarHelp() {
           variant="ghost"
           size="icon"
           aria-label="Help"
-          className="hidden h-10 w-10 rounded-full sm:flex"
+          className="hidden h-10 w-10 rounded-full md:flex"
         >
           {/* 👇 Bigger icon: h-6 w-6 instead of h-5 w-5 */}
           <HelpCircle className="size-5" strokeWidth={1.8} />

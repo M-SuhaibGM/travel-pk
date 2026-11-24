@@ -18,7 +18,7 @@ export function AdminHeader({ user }: { user: { name: string | null } }) {
     "Admin";
 
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b bg-background/95 px-6 backdrop-blur lg:px-8">
+    <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b bg-background/95 px-4 backdrop-blur sm:px-6 lg:px-8">
       <h1 className="pl-12 text-lg font-semibold lg:pl-0">{title}</h1>
       <p className="text-sm text-muted-foreground">
         Welcome, <span className="font-medium text-foreground">{user.name ?? "Admin"}</span>

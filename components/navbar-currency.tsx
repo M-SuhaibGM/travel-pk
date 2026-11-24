@@ -28,7 +28,7 @@ export function NavbarCurrency() {
         <Button
           variant="ghost"
           size="sm"
-          className="hidden h-9 gap-1 px-2 text-sm font-medium sm:flex"
+          className="hidden h-9 gap-1 px-2 text-sm font-medium md:flex"
         >
           {currency}
           <ChevronDown className="h-3.5 w-3.5" />

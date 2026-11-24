@@ -78,8 +78,8 @@ export function Footer() {
   return (
     <footer className="border-t bg-muted/30">
       {/* ============ MAIN ============ */}
-      <div className="mx-auto max-w-7xl px-6 py-12">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-6">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-6 md:gap-8">
           {/* ---------- BRAND COLUMN (spans 2) ---------- */}
           <div className="col-span-2">
             <Link
@@ -158,7 +158,7 @@ export function Footer() {
         </div>
 
         {/* ============ NEWSLETTER ============ */}
-        <div className="mt-12 flex flex-col gap-4 rounded-2xl border bg-card p-6 md:flex-row md:items-center md:justify-between">
+        <div className="mt-10 flex flex-col gap-4 rounded-2xl border bg-card p-4 sm:mt-12 sm:p-6 md:flex-row md:items-center md:justify-between">
           <div>
             <h4 className="font-semibold">Get travel deals in your inbox</h4>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -169,7 +169,7 @@ export function Footer() {
           <form
             action="/api/newsletter/subscribe"
             method="POST"
-            className="flex w-full max-w-md gap-2"
+            className="flex w-full gap-2 md:max-w-md"
           >
             <Input
               type="email"
@@ -190,7 +190,7 @@ export function Footer() {
 
       {/* ============ BOTTOM BAR ============ */}
       <div className="border-t">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 text-xs text-muted-foreground md:flex-row">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-6 text-center text-xs text-muted-foreground sm:px-6 md:flex-row md:text-left">
           <p>
             © {currentYear} Travel. All rights reserved. Made with{" "}
             <span className="text-[#00aa6c]">♥</span> for explorers.

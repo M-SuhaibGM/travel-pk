@@ -226,9 +226,9 @@ export default async function AdminBookingDetailPage({ params }: Props) {
                             <div className="mt-4 space-y-3 border-t pt-4">
                                 <a
                                     href={`mailto:${booking.email}`}
-                                    className="flex items-center gap-2 text-sm transition hover:text-[#00aa6c]"
+                                    className="flex items-center gap-2 break-all text-sm transition hover:text-[#00aa6c]"
                                 >
-                                    <Mail className="h-4 w-4 text-muted-foreground" />
+                                    <Mail className="h-4 w-4 shrink-0 text-muted-foreground" />
                                     {booking.email}
                                 </a>
                                 {booking.phone && (
@@ -428,8 +428,8 @@ function Section({
 function Row({ label, value }: { label: string; value: string }) {
     return (
         <div className="flex items-start justify-between gap-4 text-sm">
-            <span className="text-muted-foreground">{label}</span>
-            <span className="text-right font-medium">{value}</span>
+            <span className="shrink-0 text-muted-foreground">{label}</span>
+            <span className="min-w-0 break-words text-right font-medium">{value}</span>
         </div>
     );
 }

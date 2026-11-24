@@ -23,7 +23,7 @@ export default async function AdminLayout({
   return (
     <div className="min-h-screen bg-muted/30">
       <AdminSidebar user={user} />
-      <main className="p-6 pt-20 lg:p-8">{children}</main>
+      <main className="px-4 pb-6 pt-28 sm:px-6 lg:px-8 lg:pb-8">{children}</main>
     </div>
   );
 }

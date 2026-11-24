@@ -61,10 +61,10 @@ export default async function AdminReviewsPage({ searchParams }: Props) {
           {reviews.map((review) => (
             <div
               key={review.id}
-              className="rounded-2xl border bg-card p-5"
+              className="rounded-2xl border bg-card p-4 sm:p-5"
             >
               <div className="flex items-start justify-between gap-4">
-                <div className="flex items-start gap-3">
+                <div className="flex min-w-0 items-start gap-3">
                   {review.user.image ? (
                     <Image
                       src={review.user.image}
@@ -79,11 +79,11 @@ export default async function AdminReviewsPage({ searchParams }: Props) {
                       {(review.user.name ?? "U").charAt(0).toUpperCase()}
                     </div>
                   )}
-                  <div>
+                  <div className="min-w-0">
                     <p className="font-medium">
                       {review.user.name ?? "Anonymous"}
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="truncate text-xs text-muted-foreground">
                       {review.user.email}
                     </p>
                     <div className="mt-1 flex items-center gap-2">

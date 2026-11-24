@@ -174,3 +174,17 @@
     --radius: 0.5rem;
   }
 }
+
+/* ---------- Mobile safety nets ---------- */
+/* Native <select> below 16px makes iOS Safari zoom the page on focus. */
+@media (max-width: 767px) {
+  select {
+    font-size: 16px;
+  }
+}
+
+/* Prevent accidental horizontal page scroll (clip keeps position: sticky working). */
+html,
+body {
+  overflow-x: clip;
+}
